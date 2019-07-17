@@ -1,15 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Client } from 'boardgame.io/react';
 import { AI } from 'boardgame.io/ai';
-import TicTacToe from './Game';
-import Board from './Board';
 
 const App = Client({
   game: TicTacToe,
-  board: Board,
+  board: TicTacToeBoard,
+
   ai: AI({
-    enumerate: G => {
+    enumerate: (G, ctx) => {
       let moves = [];
       for (let i = 0; i < 9; i++) {
         if (G.cells[i] === null) {
@@ -17,8 +13,8 @@ const App = Client({
         }
       }
       return moves;
-    }
-  })
+    },
+  }),
 });
 
-render(<App/>, document.getElementById('root'));
+export default App;
